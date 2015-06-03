@@ -1,2 +1,11 @@
 language: python
+
+python: 3.4
+
+install:
+  travis_retry pip install tox
+
+script:
+  - tox
+
 sudo: false
