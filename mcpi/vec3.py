@@ -64,6 +64,12 @@ class Vec3:
         if dz != 0: return dz
         return 0
 
+    def __eq__(self, rhs):
+        if self.x == rhs.x and self.y == rhs.y and self.z == rhs.z:
+            return True
+
+        return False
+
     def iround(self): self._map(lambda v:int(v+0.5))
     def ifloor(self): self._map(int)
 
