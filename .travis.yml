@@ -9,6 +9,7 @@ env:
   - TOXENV=py27
   - TOXENV=py33
   - TOXENV=py34
+  - TOXENV=coverage
 
 script:
   - tox -e $TOXENV
