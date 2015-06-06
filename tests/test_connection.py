@@ -6,16 +6,22 @@ try:
 except ImportError:
     import mock
 
+import pytest
 import six
 
 from mcpi.connection import Connection
 
 
-def test__send():
+@pytest.fixture
+def conn():
     with mock.patch('socket.socket', spec=socket.socket):
-        conn = Connection('localhost', 8000)
-        conn.socket = mock.MagicMock(spec=socket.socket)
+        c = Connection('localhost', 8000)
+        c.socket = mock.MagicMock(spec=socket.socket)
 
+    return c
+
+
+def test__send(conn):
     data = six.text_type('foo')
 
     with mock.patch('select.select', spec=select.select) as sel:
