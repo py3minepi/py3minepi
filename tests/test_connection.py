@@ -15,13 +15,12 @@ from mcpi.connection import Connection
 @pytest.fixture
 def conn():
     with mock.patch('socket.socket', spec=socket.socket):
-        c = Connection('localhost', 8000)
-        c.socket = mock.MagicMock(spec=socket.socket)
+        return Connection('localhost', 8000)
 
-    return c
 
 
 def test__send(conn):
+    conn.socket = mock.MagicMock(spec=socket.socket)
     data = six.text_type('foo')
 
     with mock.patch('select.select', spec=select.select) as sel:
