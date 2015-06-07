@@ -1,0 +1,4 @@
+coverage==4.0a5
+mock==1.0.1
+pytest==2.7.1
+six==1.9.0
