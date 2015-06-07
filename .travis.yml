@@ -5,10 +5,18 @@ python: 3.4
 install:
   travis_retry pip install tox
 
+env:
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
+
 script:
-  - tox
+  - tox -e $TOXENV
 
 sudo: false
+
+matrix:
+  fast_finish: true
 
 notifications:
   irc:
