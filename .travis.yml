@@ -9,3 +9,10 @@ script:
   - tox
 
 sudo: false
+
+notifications:
+  irc:
+    channels:
+      - "chat.freenode.net#py3minepi"
+    use_notice: true
+    skip_join: true
