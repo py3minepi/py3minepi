@@ -1,4 +1,0 @@
-1. If XWindows isn't started yet, start it by typing "startx".
-2. Launch LXTerminal by clicking the icon on the desktop
-3. cd to the "mcpi" folder
-4. Launch Minecraft - Pi Edition by typing "./minecraft-pi".
