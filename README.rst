@@ -21,6 +21,29 @@ Project Priorities
 3. Make the API cleaner and more Pythonic
 4. Make the internals cleaner and more Pythonic
 
+History
+-------
+
+At PyConUK 2014 a bunch of people sprinted on porting the Minecraft Python client to Python 3.
+Great work was done, excellent progress was made, but in the process, a lot of backwards-compatibility was broken.
+
+This is a do-over, with the above priorities - starting with tests based on existing tutorials and behaviour to ensure we don't break compatibility.
+
+The previous iteration lives at https://github.com/py3minepi/py3minepi-legacy
+
+This wouldn't have been possible without contributions from the following:
+
+* Aron Nieminen (Original author at Mojang)
+* George Hickman (@ghickman)
+* Jørn Lomax (@jvlomax)
+* Kristian Glass (@doismellburning)
+* Jonathan Fine (@jonathanfine)
+* Ben Nuttall (@bennuttall)
+* Miles Gould (@pozorvlak)
+* Danilo Bargen (@dbrgn)
+* HashBang (@hashbangstudio)
+
+
 Links
 -----
 
