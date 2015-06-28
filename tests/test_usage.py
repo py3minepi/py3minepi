@@ -31,7 +31,7 @@ def mc(monkeypatch):
         assert isinstance(b, six.binary_type), "socket.socker.sendall was given non-bytes (%s)" % str(type(b))
 
     monkeypatch.setattr("socket.socket.connect", lambda x, y: None)
-    monkeypatch.setattr("socket.socket.sendall", lambda x, y: dummy_sendall)
+    monkeypatch.setattr("socket.socket.sendall", dummy_sendall)
 
     def dummy_send(self, command):
         """
