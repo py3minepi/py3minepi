@@ -11,6 +11,7 @@ least verifies that the commands still exist, which is the most likely cause of 
 """
 
 import pytest
+import six
 
 from mcpi import minecraft
 from mcpi import block
@@ -20,8 +21,17 @@ from time import sleep
 
 @pytest.fixture(autouse=True)
 def mc(monkeypatch):
+    def dummy_sendall(self, b):
+        """
+        https://docs.python.org/3/library/socket.html#socket.socket.sendall
+
+        `sendall` takes _`bytes`_ explicitly in Python 3, _not_ `str`
+        """
+
+        assert isinstance(b, six.binary_type), "socket.socker.sendall was given non-bytes (%s)" % str(type(b))
+
     monkeypatch.setattr("socket.socket.connect", lambda x, y: None)
-    monkeypatch.setattr("socket.socket.sendall", lambda x, y: None)
+    monkeypatch.setattr("socket.socket.sendall", lambda x, y: dummy_sendall)
 
     def dummy_send(self, command):
         """
