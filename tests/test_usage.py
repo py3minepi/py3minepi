@@ -41,7 +41,7 @@ def mc(monkeypatch):
 def test_hello_world(mc):
     mc.postToChat("Hello world")
 
-    assert mc.conn.lastSent == "chat.post(Hello world)\n"
+    assert mc.conn.lastSent == b"chat.post(Hello world)\n"
 
 
 def test_get_pos(mc):
@@ -57,7 +57,7 @@ def test_set_block(mc):
     x, y, z = mc.player.getPos()
     mc.setBlock(x + 1, y, z, 1)
 
-    assert mc.conn.lastSent == "world.setBlock(%d,%d,%d,%d)\n" % (x + 1, y, z, 1)
+    assert mc.conn.lastSent == ("world.setBlock(%d,%d,%d,%d)\n" % (x + 1, y, z, 1)).encode("cp437")
 
 
 def test_blocks_as_variables(mc):
