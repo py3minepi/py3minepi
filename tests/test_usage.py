@@ -11,6 +11,7 @@ least verifies that the commands still exist, which is the most likely cause of 
 """
 
 import pytest
+import six
 
 from mcpi import minecraft
 from mcpi import block
@@ -20,8 +21,17 @@ from time import sleep
 
 @pytest.fixture(autouse=True)
 def mc(monkeypatch):
+    def dummy_sendall(self, b):
+        """
+        https://docs.python.org/3/library/socket.html#socket.socket.sendall
+
+        `sendall` takes _`bytes`_ explicitly in Python 3, _not_ `str`
+        """
+
+        assert isinstance(b, six.binary_type), "socket.socket.sendall was given non-bytes (%s)" % str(type(b))
+
     monkeypatch.setattr("socket.socket.connect", lambda x, y: None)
-    monkeypatch.setattr("socket.socket.sendall", lambda x, y: None)
+    monkeypatch.setattr("socket.socket.sendall", dummy_sendall)
 
     monkeypatch.setattr("mcpi.connection.Connection.drain", lambda x: None)
     monkeypatch.setattr("mcpi.minecraft.CmdPositioner.getPos", lambda x, y: Vec3(0.1, 0.1, 0.1))
@@ -31,7 +41,7 @@ def mc(monkeypatch):
 def test_hello_world(mc):
     mc.postToChat("Hello world")
 
-    assert mc.conn.lastSent == "chat.post(Hello world)\n"
+    assert mc.conn.lastSent == b"chat.post(Hello world)\n"
 
 
 def test_get_pos(mc):
@@ -47,7 +57,7 @@ def test_set_block(mc):
     x, y, z = mc.player.getPos()
     mc.setBlock(x + 1, y, z, 1)
 
-    assert mc.conn.lastSent == "world.setBlock(%d,%d,%d,%d)\n" % (x + 1, y, z, 1)
+    assert mc.conn.lastSent == ("world.setBlock(%d,%d,%d,%d)\n" % (x + 1, y, z, 1)).encode("cp437")
 
 
 def test_blocks_as_variables(mc):
