@@ -28,7 +28,7 @@ def mc(monkeypatch):
         `sendall` takes _`bytes`_ explicitly in Python 3, _not_ `str`
         """
 
-        assert isinstance(b, six.binary_type), "socket.socker.sendall was given non-bytes (%s)" % str(type(b))
+        assert isinstance(b, six.binary_type), "socket.socket.sendall was given non-bytes (%s)" % str(type(b))
 
     monkeypatch.setattr("socket.socket.connect", lambda x, y: None)
     monkeypatch.setattr("socket.socket.sendall", dummy_sendall)
